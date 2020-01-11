@@ -13,6 +13,28 @@ void CCamera::destroyInstance()
 	CC_SAFE_DELETE(_pCamera);
 }
 
+void CCamera::Move(Direction direction)
+{
+	vec4 viewDirection(_lookAt.x - _viewPosition.x, _lookAt.y - _viewPosition.y, _lookAt.z - _viewPosition.z, 0.0f);
+	viewDirection = normalize(viewDirection);
+	vec4 viewPosition = _viewPosition;
+	vec4 lookAt = _lookAt;
+	vec4 dir;
+	if (direction == Direction::FORWARD)
+		dir = viewDirection;
+	else if (direction == Direction::BACKWARD)
+		dir = -viewDirection;
+	else if (direction == Direction::LEFT)
+		dir = normalize(Angel::cross4(_upVector, viewDirection));
+	else if (direction == Direction::RIGHT)
+		dir = -normalize(Angel::cross4(_upVector, viewDirection));
+	viewPosition += moveSpeed * dir;
+	lookAt += moveSpeed * dir;
+	if (viewPosition.z > -8.5f && viewPosition.z < 8.5f && viewPosition.x > -8.5f && viewPosition.x < 8.5f) {
+		updateViewLookAt(viewPosition, lookAt);
+	}
+}
+
 CCamera::~CCamera()
 {
 
@@ -43,11 +65,12 @@ void  CCamera::initDefault()
 	_bViewDirty = true;
 	_bProjectionDirty = true;
 	_viewProjection = _projection * _view;	// 可以先不用計算
+	moveSpeed = 0.1f;
 }
 
 CCamera* CCamera::getInstance()
 {
-	if ( _pCamera == nullptr ){
+	if (_pCamera == nullptr) {
 		_pCamera = new (std::nothrow) CCamera;
 		_pCamera->initDefault();
 	}
@@ -70,7 +93,7 @@ void CCamera::updateOrthographic(float left, float right, float bottom, float to
 	_viewProjection = _projection * _view; // 同時更新  viewProjection matrix (可以先不用計算)
 }
 
-void CCamera::updateViewPosition(vec4 &vp)
+void CCamera::updateViewPosition(vec4& vp)
 {
 	// 產生 View Matrix
 	_viewPosition = vp;
@@ -78,7 +101,7 @@ void CCamera::updateViewPosition(vec4 &vp)
 	_bViewDirty = true;
 	_viewProjection = _projection * _view; // 可以先不用計算
 }
-void CCamera::updateLookAt(vec4 &at)
+void CCamera::updateLookAt(vec4& at)
 {
 	// 產生 View Matrix
 	_lookAt = at;
@@ -87,7 +110,7 @@ void CCamera::updateLookAt(vec4 &at)
 	_viewProjection = _projection * _view;  // 可以先不用計算
 }
 
-void CCamera::updateViewLookAt(vec4 &vp, vec4 &at)
+void CCamera::updateViewLookAt(vec4& vp, vec4& at)
 {
 	// 產生 View Matrix
 	_viewPosition = vp;
@@ -97,13 +120,13 @@ void CCamera::updateViewLookAt(vec4 &vp, vec4 &at)
 	_viewProjection = _projection * _view; // 可以先不用計算
 }
 
-const mat4& CCamera::getProjectionMatrix(bool &bProj) const
+const mat4& CCamera::getProjectionMatrix(bool& bProj) const
 {
 	bProj = _bProjectionDirty;
 	if (_bProjectionDirty) _bProjectionDirty = false; // 重新取得 就設定成 false
 	return _projection;
 }
-const mat4& CCamera::getViewMatrix(bool &bView) const
+const mat4& CCamera::getViewMatrix(bool& bView) const
 {
 	bView = _bViewDirty;
 	if (_bViewDirty) _bViewDirty = false; // 重新取得 就設定成 false

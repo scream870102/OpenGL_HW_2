@@ -35,8 +35,8 @@ void GL_Display( void )
 
 void onFrameMove(float delta)
 {
-	Input::GetInstance()->Update();
 	scene->Update(delta);
+	Input::GetInstance()->Update();
 	GL_Display();
 }
 

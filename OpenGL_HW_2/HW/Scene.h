@@ -1,4 +1,21 @@
 #pragma once
+//class IScene
+//{
+//public:
+//	IScene();
+//	~IScene();
+//
+//private:
+//
+//};
+//
+//IScene::IScene()
+//{
+//}
+//
+//IScene::~IScene()
+//{
+//}
 class Scene
 {
 public:

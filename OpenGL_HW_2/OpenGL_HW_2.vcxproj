@@ -95,6 +95,7 @@
     <ClInclude Include="Header\CheckError.h" />
     <ClInclude Include="Header\mat.h" />
     <ClInclude Include="Header\vec.h" />
+    <ClInclude Include="HW\Model.h" />
     <ClInclude Include="HW\Scene.h" />
     <ClInclude Include="HW\Utils\Input.h" />
   </ItemGroup>
@@ -111,6 +112,7 @@
     <ClCompile Include="Common\CWireSphere.cpp" />
     <ClCompile Include="Common\Timer.cpp" />
     <ClCompile Include="Example4.cpp" />
+    <ClCompile Include="HW\Model.cpp" />
     <ClCompile Include="HW\Scene.cpp" />
     <ClCompile Include="HW\Utils\Input.cpp" />
     <ClCompile Include="InitShader.cpp" />

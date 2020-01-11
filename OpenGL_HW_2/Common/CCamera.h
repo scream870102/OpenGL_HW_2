@@ -18,6 +18,12 @@ public:
 		PERSPECTIVE = 1,
 		ORTHOGRAPHIC = 2
 	};
+	enum class Direction {
+		FORWARD,
+		BACKWARD,
+		LEFT,
+		RIGHT,
+	};
 
 	void updatePerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane);
 	void updateOrthographic(float left, float right, float bottom, float top, float nearPlane, float farPlane);
@@ -35,6 +41,7 @@ public:
 	static CCamera *getInstance();	// 取得  CCamera 的實體
 
 	void destroyInstance();		// 釋放取得資源
+	void Move(Direction direction);
 
 protected:
 	CCamera();		// 避免被誤用
@@ -56,6 +63,8 @@ protected:
 	mutable bool _bProjectionDirty;	// Projection 矩陣內容更新過 必須重新取得
 
 	static CCamera* _pCamera;
+
+	float moveSpeed;
 };
 
 #endif

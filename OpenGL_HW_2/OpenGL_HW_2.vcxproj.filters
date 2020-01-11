@@ -75,6 +75,9 @@
     <ClInclude Include="HW\Utils\Input.h">
       <Filter>HW\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="HW\Model.h">
+      <Filter>HW</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common\CLineSegment.cpp">
@@ -121,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="HW\Utils\Input.cpp">
       <Filter>HW\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="HW\Model.cpp">
+      <Filter>HW</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
